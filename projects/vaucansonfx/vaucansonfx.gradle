@@ -38,8 +38,7 @@ dependencies {
 // test source dependencies.
 dependencies {
     // junit test framework.
-    testCompile "junit:junit:4.12", {
-        exclude group: "org.hamcrest"
-    }
+    testCompile "junit:junit:4.12"
+    testCompile "org.jetbrains.kotlin:kotlin-test:${project.ext.kotlinVersion}"
 }
 
