@@ -4,14 +4,17 @@
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${project.ext.dokkaVersion}"
     }
 }
 
 apply(plugin: "kotlin")
+apply(plugin: "org.jetbrains.dokka")
 
 //-------------------------------------------------------------------------------------------------
 // REPOSITORIES.
@@ -42,3 +45,10 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test:${project.ext.kotlinVersion}"
 }
 
+//-------------------------------------------------------------------------------------------------
+// CONFIGURATION.
+//-------------------------------------------------------------------------------------------------
+
+dokka {
+    outputFormat = "javadoc"
+}
