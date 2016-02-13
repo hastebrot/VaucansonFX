@@ -1,0 +1,45 @@
+//-------------------------------------------------------------------------------------------------
+// PLUGINS.
+//-------------------------------------------------------------------------------------------------
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
+    }
+}
+
+apply(plugin: "kotlin")
+
+//-------------------------------------------------------------------------------------------------
+// REPOSITORIES.
+//-------------------------------------------------------------------------------------------------
+
+repositories {
+    // maven central hosts most of the dependencies.
+    mavenCentral()
+}
+
+//-------------------------------------------------------------------------------------------------
+// DEPENDENCIES.
+//-------------------------------------------------------------------------------------------------
+
+// main source dependencies.
+dependencies {
+    // kotlin standard library.
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${project.ext.kotlinVersion}"
+
+    // tornado micro framwork.
+    compile "no.tornado:fx:1.2.2"
+}
+
+// test source dependencies.
+dependencies {
+    // junit test framework.
+    testCompile "junit:junit:4.12", {
+        exclude group: "org.hamcrest"
+    }
+}
+

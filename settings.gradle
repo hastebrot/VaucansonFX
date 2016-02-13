@@ -1,0 +1,13 @@
+// name of root project.
+rootProject.name = "VaucansonFX"
+
+// list of projects.
+include "projects/vaucansonfx"
+
+// location of the build files.
+rootProject.children.each { project ->
+    def projectDir = new File(project.name)
+    project.name = projectDir.name
+    project.projectDir = projectDir
+    project.buildFileName = "${projectDir.name}.gradle"
+}
