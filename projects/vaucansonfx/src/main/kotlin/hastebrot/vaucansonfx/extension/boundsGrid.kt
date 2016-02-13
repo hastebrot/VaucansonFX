@@ -11,11 +11,13 @@ fun Bounds.toBoundsGrid(columns: Int, rows: Int) = BoundsGrid(this, columns, row
 class BoundsGrid(val bounds: Bounds, val columns: Int, val rows: Int) {
 
     fun cell(column: Int, row: Int): Bounds {
+        val width = bounds.width / columns
+        val height = bounds.height / rows
         return bounds(
-            bounds.minX + ((bounds.width / columns) * column),
-            bounds.minY + ((bounds.height / rows) * row),
-            bounds.width / columns,
-            bounds.height / rows
+            bounds.minX + (width * column),
+            bounds.minY + (height * row),
+            width,
+            height
         )
     }
 
