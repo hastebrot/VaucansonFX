@@ -9,6 +9,8 @@ import javafx.geometry.VPos
 import javafx.stage.Screen
 import javafx.stage.Window
 
+fun bounds(width: Double, height: Double) = bounds(0.0, 0.0, width, height)
+
 fun bounds(minX: Double, minY: Double, width: Double, height: Double): Bounds =
     BoundingBox(minX, minY, width, height)
 
@@ -28,7 +30,7 @@ fun Bounds.alignPoint(positionFactors: Point2D): Point2D {
 
 fun Bounds.alignBounds(innerBounds: Bounds, position: Pos): Bounds {
     val point = alignPoint(position)
-    val innerPoint = bounds(0.0, 0.0, innerBounds.width, innerBounds.height).alignPoint(position)
+    val innerPoint = bounds(innerBounds.width, innerBounds.height).alignPoint(position)
     return bounds(
         point.x - innerPoint.x,
         point.y - innerPoint.y,
