@@ -1,7 +1,11 @@
 package hastebrot.vaucansonfx
 
+import hastebrot.vaucansonfx.extension.alignBounds
+import hastebrot.vaucansonfx.extension.toBounds
+import hastebrot.vaucansonfx.extension.toBoundsGrid
 import javafx.application.Application
 import javafx.application.Platform
+import javafx.geometry.Pos
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.StackPane
 import javafx.stage.Screen
@@ -26,20 +30,27 @@ class Main : View() {
         println(controller.foo())
 
         Platform.runLater {
-            root.scene.setOnKeyReleased {
-                when (it.code) {
-                    KeyCode.ESCAPE -> (root.scene.window as Stage).close()
-                    else -> Unit
-                }
-            }
-            centerOnHalfScreen(root.scene.window)
+            registerWindowCloseKey(root.scene.window)
+            centerOnLeftHalfScreen(root.scene.window)
         }
     }
 
-    fun centerOnHalfScreen(window: Window) {
-        val halfScreen = Screen.getPrimary().bounds.width / 2.0
-        val stageLeft = (halfScreen - window.width) / 2.0
-        window.x = stageLeft
+    fun registerWindowCloseKey(window: Window) {
+        window.scene.setOnKeyReleased {
+            when (it.code) {
+                KeyCode.ESCAPE -> (window as Stage).close()
+                else -> Unit
+            }
+        }
+    }
+
+    fun centerOnLeftHalfScreen(window: Window) {
+        val screenBounds = Screen.getPrimary().toBounds()
+        val windowBounds = window.toBounds()
+        val boundsGrid = screenBounds.toBoundsGrid(2, 1)
+        val newWindowBounds = boundsGrid.cell(0, 0).alignBounds(windowBounds, Pos.CENTER)
+        window.x = newWindowBounds.minX
+        window.y = newWindowBounds.minY
     }
 }
 

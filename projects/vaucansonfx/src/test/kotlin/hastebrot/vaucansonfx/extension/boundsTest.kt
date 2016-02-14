@@ -55,4 +55,19 @@ class BoundsTest {
         assertEquals(Point2D(1.0, 1.0), computePositionFactors(Pos.BOTTOM_RIGHT))
     }
 
+    @Test
+    fun alignBounds() {
+        // given:
+        val bounds = bounds(100.0, 1000.0, 200.0, 2000.0)
+        val innerBounds = bounds(999.0, 999.0, 100.0, 100.0)
+
+        // expect:
+        assertEquals(bounds(100.0, 1000.0, 100.0, 100.0),
+            bounds.alignBounds(innerBounds, Pos.TOP_LEFT))
+        assertEquals(bounds(300.0 - 100.0, 3000.0 - 100.0, 100.0, 100.0),
+            bounds.alignBounds(innerBounds, Pos.BOTTOM_RIGHT))
+        assertEquals(bounds(150.0, 1950.0, 100.0, 100.0),
+            bounds.alignBounds(innerBounds, Pos.CENTER))
+    }
+
 }
